@@ -1,15 +1,21 @@
 package com.example.android.eatouttracker;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.android.eatouttracker.data.EatOutContract;
 import com.example.android.eatouttracker.data.EatOutDbHelper;
+
+import static android.R.attr.onClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,13 +27,21 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText mReviewEditText;
 
+    private Button mInsertButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mReviewEditText = (EditText) findViewById(R.id.edit_review);
-
+        mInsertButton = (Button) findViewById(R.id.insert_data);
+        mInsertButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                insertRestaurant();
+            }
+        });
 
         mDbHelper = new EatOutDbHelper(this);
     }
@@ -37,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         String reviewString = mReviewEditText.getText().toString().trim();
+        if (reviewString.isEmpty()) {
+            Toast.makeText(this, "Please enter a number to rate the restaurant.", Toast.LENGTH_SHORT).show();
+        }
         //Converting the String value to integer.
         int review = Integer.parseInt(reviewString);
         //Create new map of values, where column names are the keys
@@ -95,4 +112,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 }

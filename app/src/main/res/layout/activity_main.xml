@@ -21,4 +21,10 @@
         android:layout_height="wrap_content"
         android:inputType="number" />
 
+    <Button
+        android:id="@+id/insert_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create" />
+
 </android.support.constraint.ConstraintLayout>
