@@ -21,8 +21,5 @@ public final class EatOutContract {
         public static final int PRICE_MODERATE = 1;
         public static final int PRICE_EXPENSIVE = 2;
 
-        public static final int REVIEW_BAD = 0;
-        public static final int REVIEW_VERY_GOOD = 1;
-        public static final int REVIEW_EXCELLENT = 2;
     }
 }

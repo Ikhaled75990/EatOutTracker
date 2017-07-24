@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
 
 import com.example.android.eatouttracker.data.EatOutContract;
 import com.example.android.eatouttracker.data.EatOutDbHelper;
@@ -18,22 +19,26 @@ public class MainActivity extends AppCompatActivity {
 
     private int mPrice = 0;
 
-    private String mReview;
+    private EditText mReviewEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mReviewEditText = (EditText) findViewById(R.id.edit_review);
+
+
         mDbHelper = new EatOutDbHelper(this);
     }
 
-    private void insertRestaurant(){
+    private void insertRestaurant() {
         //Get the data repository in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
+        String reviewString = mReviewEditText.getText().toString().trim();
         //Converting the String value to integer.
-        int review = Integer.parseInt(mReview);
+        int review = Integer.parseInt(reviewString);
         //Create new map of values, where column names are the keys
         ContentValues values = new ContentValues();
         values.put(EatOutContract.EatOutEntry.COLUMN_RESTAURANT_NAME, "Mendoza Square");
@@ -76,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
             cursor.close();
         }
     }
+
     public Cursor queryAllHabits() {
         // Create and/or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
